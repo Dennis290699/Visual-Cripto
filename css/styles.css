@@ -1,0 +1,341 @@
+:root {
+    --bg1: #0f1724;
+    --bg2: #071226;
+    --card: rgba(255, 255, 255, 0.06);
+    --accent1: #7C5CFA;
+    --accent2: #2BD4C4;
+    --glass: rgba(255, 255, 255, 0.04);
+    --glass-strong: rgba(255, 255, 255, 0.07);
+    --muted: rgba(255, 255, 255, 0.65);
+    --success: #4ade80;
+    --danger: #fb7185;
+    --mono: 'Segoe UI Mono', Consolas, Monaco, monospace;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body,
+#app {
+    height: 100%;
+}
+
+body {
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    background: radial-gradient(1200px 400px at 10% 10%, rgba(124, 92, 250, 0.12), transparent 6%),
+        radial-gradient(900px 300px at 95% 90%, rgba(43, 212, 196, 0.08), transparent 8%),
+        linear-gradient(180deg, var(--bg1), var(--bg2));
+    color: white;
+    -webkit-font-smoothing: antialiased;
+    padding: 28px;
+    overflow-x: hidden;
+}
+
+/* =========================
+   Layout
+   ========================= */
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 420px 1fr;
+    gap: 22px;
+    align-items: start;
+}
+
+.panel {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.02));
+    border-radius: 16px;
+    padding: 18px;
+    box-shadow: 0 10px 30px rgba(2, 6, 23, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    transition: transform 0.25s ease, box-shadow 0.3s ease;
+}
+
+.panel:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 36px rgba(124, 92, 250, 0.16);
+}
+
+/* Header */
+header.app-header {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+
+.logo {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.logo .mark {
+    width: 56px;
+    height: 56px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--accent1), var(--accent2));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 20px rgba(43, 212, 196, 0.15);
+    font-weight: 700;
+    font-size: 20px;
+    animation: pulseMark 3s infinite ease-in-out;
+}
+
+@keyframes pulseMark {
+
+    0%,
+    100% {
+        box-shadow: 0 0 20px rgba(43, 212, 196, 0.1);
+    }
+
+    50% {
+        box-shadow: 0 0 35px rgba(124, 92, 250, 0.25);
+    }
+}
+
+/* =========================
+   Controls panel (izq)
+   ========================= */
+.controls {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+label {
+    font-size: 13px;
+    color: var(--muted);
+}
+
+/* Inputs y textareas */
+input[type="text"],
+textarea,
+select {
+    background: var(--glass);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    padding: 10px 12px;
+    border-radius: 10px;
+    color: white;
+    font-size: 14px;
+    outline: none;
+    transition: box-shadow 0.25s, border 0.25s, transform 0.12s;
+}
+
+textarea {
+    min-height: 110px;
+    resize: vertical;
+}
+
+input:focus,
+textarea:focus {
+    border-color: var(--accent2);
+    box-shadow: 0 0 10px rgba(43, 212, 196, 0.25);
+    transform: scale(1.01);
+}
+
+/* Botones */
+.btn {
+    background: linear-gradient(90deg, var(--accent1), var(--accent2));
+    padding: 10px 14px;
+    border-radius: 10px;
+    color: white;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(124, 92, 250, 0.14);
+    transition: transform 0.18s, box-shadow 0.25s, background 0.25s;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 26px rgba(124, 92, 250, 0.3);
+}
+
+.btn.ghost {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: none;
+}
+
+.btn.ghost:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+/* Chips */
+.switch-group {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.chip {
+    padding: 8px 12px;
+    border-radius: 999px;
+    background: var(--glass);
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    cursor: pointer;
+    font-weight: 600;
+    user-select: none;
+    transition: transform 0.18s, background 0.25s, box-shadow 0.25s;
+}
+
+.chip:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(124, 92, 250, 0.25);
+}
+
+.chip.active {
+    background: linear-gradient(90deg, var(--accent1), var(--accent2));
+    color: #06121a;
+    box-shadow: 0 8px 30px rgba(124, 92, 250, 0.22);
+}
+
+/* =========================
+   Visualizer panel (der)
+   ========================= */
+.visual {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.card {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+    border-radius: 14px;
+    padding: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    transition: box-shadow 0.25s, transform 0.25s;
+}
+
+.card:hover {
+    box-shadow: 0 12px 26px rgba(43, 212, 196, 0.12);
+    transform: translateY(-2px);
+}
+
+/* Stepper */
+.steps {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.step {
+    padding: 8px 10px;
+    border-radius: 999px;
+    background: var(--glass);
+    font-weight: 700;
+    border: 1px solid rgba(255, 255, 255, 0.02);
+    min-width: 40px;
+    text-align: center;
+    transform: scale(1);
+    transition: transform 0.18s, background 0.25s, box-shadow 0.25s;
+}
+
+.step:hover {
+    transform: scale(1.08);
+    background: rgba(43, 212, 196, 0.15);
+}
+
+.step.active {
+    transform: scale(1.12);
+    background: linear-gradient(135deg, var(--accent1), var(--accent2));
+    box-shadow: 0 0 25px rgba(43, 212, 196, 0.2);
+    color: #06121a;
+}
+
+/* Matrix visual */
+.matrix {
+    display: grid;
+    gap: 6px;
+    justify-content: start;
+    animation: fadeIn 0.6s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.cell {
+    min-width: 36px;
+    min-height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    font-family: var(--mono);
+    transition: transform 0.22s, background 0.22s, box-shadow 0.22s;
+}
+
+.cell.highlight {
+    transform: translateY(-6px) scale(1.06);
+    background: linear-gradient(135deg, rgba(124, 92, 250, 0.25), rgba(43, 212, 196, 0.18));
+    box-shadow: 0 18px 40px rgba(43, 212, 196, 0.15), inset 0 -6px 20px rgba(0, 0, 0, 0.12);
+    color: #06121a;
+}
+
+/* Output area */
+.output {
+    font-family: var(--mono);
+    font-size: 18px;
+    padding: 12px;
+    border-radius: 10px;
+    background: linear-gradient(90deg, rgba(0, 0, 0, 0.18), rgba(255, 255, 255, 0.01));
+    border: 1px solid rgba(255, 255, 255, 0.03);
+    min-height: 46px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    animation: fadeIn 0.6s ease;
+}
+
+/* Bottom controls */
+.play-controls {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.kbd {
+    padding: 6px 8px;
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.25);
+    font-weight: 700;
+    font-size: 13px;
+}
+
+/* Responsiveness */
+@media (max-width:1000px) {
+    .container {
+        grid-template-columns: 1fr;
+        padding-bottom: 40px;
+    }
+}

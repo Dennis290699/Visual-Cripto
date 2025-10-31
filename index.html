@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+    <link rel="stylesheet" href="./css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link rel="icon" href="./assets/icons/cripto.png">
+
+    <title>Visual Crypto — César & Columnar</title>
+</head>
+
+<body>
+    <div id="app" class="container">
+        <header class="app-header">
+            <div class="logo">
+                <div class="mark">VC</div>
+                <div>
+                    <h1>Visual Crypto</h1>
+                    <p>Aprende Cifrado César y Transposición — paso a paso</p>
+                </div>
+            </div>
+            <div style="text-align:right">
+                <div style="color:var(--muted);font-size:13px">Interactividad | Visual | Didáctico</div>
+                <div style="margin-top:6px;font-size:12px;color:var(--muted)">
+                    Desarrollado por grupo 6 
+                    <a href="https://github.com/VisualCrypto" target="_blank">
+                    <i class="fa-brands fa-github" style="color: #ffffff; margin-left: 5px;"></i>
+                </a>
+                </div>
+                
+            </div>
+        </header>
+
+        <!-- PANEL IZQUIERDO: Controles -->
+        <aside class="panel controls">
+            <div class="field">
+                <label>Texto (entrada)</label>
+                <textarea id="inputText" placeholder="Escribe un texto aquí... prueba: Hola Mundo 123"></textarea>
+            </div>
+
+            <div class="field">
+                <label>Selecciona modos de cifrado</label>
+                <div class="switch-group" id="modeChips">
+                    <div class="chip active" data-mode="caesar">César (Sustitución)</div>
+                    <div class="chip active" data-mode="columnar">Transposición por columnas (Difusión)</div>
+                </div>
+                <div style="margin-top:8px;color:var(--muted);font-size:13px">Activa uno o ambos. El orden de ejecución
+                    es arriba → abajo (César luego Columnar si ambos están activos).</div>
+            </div>
+
+            <div class="field control-row">
+                <div style="flex:1">
+                    <label>Desplazamiento (César)</label>
+                    <input id="caesarShift" type="text" value="3" />
+                </div>
+                <div style="width:120px">
+                    <label>Columnas (Transposición)</label>
+                    <input id="columnKey" type="text" value="4" />
+                </div>
+            </div>
+
+            <div class="field">
+                <label>Acciones</label>
+                <div style="display:flex;gap:8px">
+                    <button id="btnEncrypt" class="btn">Cifrar</button>
+                    <button id="btnDecrypt" class="btn ghost" title="Aplica el proceso inverso">Descifrar</button>
+                    <button id="btnClear" class="btn ghost small">Limpiar</button>
+                </div>
+            </div>
+
+            <div class="field">
+                <label>Velocidad de animación</label>
+                <div style="display:flex;gap:8px;align-items:center">
+                    <input id="speed" type="range" min="200" max="1600" value="700" style="flex:1" />
+                    <div class="kbd" id="speedLabel">700ms</div>
+                </div>
+            </div>
+
+            <div style="margin-top:auto;color:var(--muted);font-size:13px">
+                <strong>Nota:</strong> El propósito es didáctico: no usar para proteger información sensible.
+            </div>
+        </aside>
+
+        <!-- PANEL DERECHO: Visualización -->
+        <main class="panel visual">
+            <div class="card">
+                <div style="display:flex;justify-content:space-between;align-items:center">
+                    <div>
+                        <strong>Proceso</strong>
+                        <div style="color:var(--muted);font-size:13px">Observa paso a paso cómo se transforma el texto
+                        </div>
+                    </div>
+                    <div class="legend">
+                        <div style="display:flex;flex-direction:column;align-items:flex-end">
+                            <div style="font-size:12px;color:var(--muted)">Estado</div>
+                            <div style="display:flex;gap:8px;margin-top:6px">
+                                <div class="step" id="stageInput">IN</div>
+                                <div class="step" id="stageCaesar">CÉSAR</div>
+                                <div class="step" id="stageMatrix">MATRIZ</div>
+                                <div class="step" id="stageOutput">OUT</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Visual stepper -->
+                <div style="margin-top:12px" class="card">
+                    <div style="display:flex;justify-content:space-between;align-items:center">
+                        <div class="steps" id="stepsBar">
+                            <!-- steps se actualizan por JS -->
+                        </div>
+
+                        <div class="play-controls">
+                            <button id="prevStep" class="btn ghost small">
+                                <i class="fas fa-step-backward"></i>
+                            </button>
+                            <button id="playPause" class="btn small">
+                                <i class="fas fa-play"></i> Play
+                            </button>
+                            <button id="nextStep" class="btn ghost small">
+                                <i class="fas fa-step-forward"></i>
+                            </button>
+                            <div style="width:12px"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Área visual principal -->
+                <div style="display:flex;gap:12px;margin-top:14px;flex-wrap:wrap">
+                    <div style="flex:1;min-width:280px">
+                        <div style="margin-bottom:8px;color:var(--muted);font-size:13px">Matriz / Orden de lectura</div>
+                        <div id="matrixWrap" class="card"
+                            style="min-height:160px;display:flex;align-items:center;justify-content:center">
+                            <!-- Aquí se pinta la matriz o la fila de caracteres -->
+                            <div id="matrixArea" style="width:100%"></div>
+                        </div>
+                    </div>
+
+                    <div style="width:320px;min-width:240px">
+                        <div style="margin-bottom:8px;color:var(--muted);font-size:13px">Salida / Resultado</div>
+                        <div class="output card" id="outputArea">—</div>
+
+                        <div style="margin-top:12px">
+                            <div style="color:var(--muted);font-size:13px;margin-bottom:6px">Detalles</div>
+                            <div id="details" class="card"
+                                style="font-size:13px;color:var(--muted);min-height:78px;padding:10px">
+                                Cada paso se explica aquí.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <script src="./js/script.js"></script>
+</body>
+
+</html>
