@@ -83,12 +83,16 @@ Cifrado: HEEPOSLSTRUATOUENAXX
 
 ## 🤝 Colaboradores
 
-Agradecimientos a todas las personas que aportan al proyecto 💚
+Agradecimientos a todas las personas que aportaron al desarrollo del proyecto de criptografía 💚
 
-| Nombre                               | Rol                     | Contacto                                  |
-| ------------------------------------ | ----------------------- | ----------------------------------------- |
-| **Dennis290699**                      | Desarrollador principal | [GitHub](https://github.com/Dennis290699) |
-| *(Espacio libre para colaboradores)* | —                       | —                                         |
+| Nombre                               | Rol                                | Contacto                                  |
+| ------------------------------------ | ---------------------------------- | ----------------------------------------- |
+| **Condolo Byron**                    | Diseño de interfaz y usabilidad    | [GitHub](https://github.com/SumonPB)                                        |
+| **Lascano Angelo**                   | Documentación técnica              | —                                         |
+| **Loya Bryan**                       | Pruebas y control de calidad       | [GitHub](https://github.com/Bryan1093)                                          |
+| **Rosero Ruth**                      | Análisis y validación de algoritmos| —                                         |
+| **Tapia Freddy**                     | Integración y soporte de código    | [GitHub](https://github.com/XavierT1)                                      |
+| **Trujillo Dennis**                  | Desarrollador principal            | [GitHub](https://github.com/Dennis290699) |
 
 ¿Quieres colaborar? 🙌
 Haz un **fork**, crea una rama y envía un **pull request** con tus mejoras.
